@@ -24,7 +24,7 @@ set $menu wofi --show run --allow images
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /home/parzival/.local/share/backgrounds/2021-05-27-21-27-36-thumb-1920-1146156.jpg fill
+output * bg (*WALLPAPER FILE OF CHOICE*) fill
 #
 # Example configuration:
 #
