@@ -4,7 +4,7 @@
 #
 # Read `man 5 sway` for a complete reference.
 
-font pango: FiraSans Medium 12
+font pango: FiraSans Medium 10
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
@@ -24,7 +24,8 @@ set $menu wofi --show run --allow images
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg (*WALLPAPER FILE OF CHOICE*) fill
+##output * bg /home/parzival/.local/share/backgrounds/2021-05-27-21-27-36-thumb-1920-1146156.jpg fill
+output * bg ~/Downloads/wallpaper.jpg fill
 #
 # Example configuration:
 #
@@ -75,7 +76,7 @@ exec autotiling
     bindsym $mod+Return exec $term
 
     # Kill focused window
-    bindsym Ctrl+Shift+q kill
+    bindsym Ctrl+Shift+k kill
 
     # Start your launcher
     bindsym $mod+i exec $menu
@@ -85,7 +86,7 @@ exec autotiling
     # Despite the name, also works for non-floating windows.
     # Change normal to inverse to use left mouse button for resizing and right
     # mouse button for dragging.
-    floating_modifier $mod normal
+    floating_modifier $mod inverse
 
     # Reload the configuration file
     bindsym $mod+Shift+c reload
@@ -94,7 +95,7 @@ exec autotiling
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
     # Screenshot
-    bindsym $mod+Ctrl+s exec grim screenshot.png
+    bindsym f11 exec grim screenshot.png
 
 # Firefox
 bindsym $mod+f exec firefox
@@ -103,35 +104,47 @@ bindsym $mod+f exec firefox
 bindsym $mod+s exec spotify
 
 # Files
-bindsym $mod+Shift+f exec dolphin
+bindsym $mod+Shift+f exec vifm
+
+# Files 2.0
+bindsym $mod+Ctrl+f exec pcmanfm
 
 # Lock
 bindsym $mod+Shift+Ctrl+l exec swaylock
+
+# Librewolf
+bindsym $mod+b exec librewolf
+
+# Qutebrowser
+bindsym Ctrl+q exec qutebrowser
+
+# dmenfm
+bindsym $mod+d exec dmenfm
 
 #
 # Moving around:
 #
     # Move your focus around
-    bindsym $mod+$left focus left
-    bindsym $mod+$down focus down
-    bindsym $mod+$up focus up
-    bindsym $mod+$right focus right
+    bindsym $mod+h focus left
+    bindsym $mod+j focus down
+    bindsym $mod+k focus up
+    bindsym $mod+l focus right
     # Or use $mod+[up|down|left|right]
-    bindsym $mod+Left focus left
-    bindsym $mod+Down focus down
-    bindsym $mod+Up focus up
-    bindsym $mod+Right focus right
+    #bindsym $mod+Left focus left
+    #bindsym $mod+Down focus down
+    #bindsym $mod+Up focus up
+    #bindsym $mod+Right focus right
 
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
-bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym Mod1+Down exec brightnessctl set 5%-
+bindsym Mod1+Up exec brightnessctl set 5%+
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
-bindsym XF86Search exec bemenu-run
+bindsym XF86Search exec $menu
 
     # Move the focused window with the same, but add Shift
     bindsym $mod+Shift+$left move left
@@ -176,8 +189,8 @@ bindsym XF86Search exec bemenu-run
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
+    bindsym Alt+b splith
+    bindsym Alt+v splitv
 
     # Switch the current container between different layout styles
     bindsym $mod+Ctrl+Shift+s layout stacking
@@ -185,13 +198,13 @@ bindsym XF86Search exec bemenu-run
     bindsym $mod+e layout toggle split
 
     # Make the current focus fullscreen
-    bindsym $mod+Ctrl+f fullscreen
+    bindsym $mod+Ctrl+Shift+f fullscreen
 
     # Toggle the current focus between tiling and floating mode
-    bindsym $mod+Shift+space floating toggle
+    bindsym $mod+Shift+space focus mode_toggle
 
     # Swap focus between the tiling area and the floating area
-    bindsym $mod+space focus mode_toggle
+    bindsym $mod+space floating enable
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
@@ -214,11 +227,8 @@ mode "resize" {
     # left will shrink the containers width
     # right will grow the containers width
     # up will shrink the containers height
-    # down will grow the containers height
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
     bindsym $right resize grow width 10px
+    bindsym $left resize grow width -10px
 
     # Ditto, with arrow keys
     bindsym Left resize shrink width 10px
@@ -244,4 +254,4 @@ bar
 default_border none
 gaps outer 4
 gaps inner 7
-include /etc/sway/config.d/*
+include /etc/sway/config.d/*# Default config for sway
